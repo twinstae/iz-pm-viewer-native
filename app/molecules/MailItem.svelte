@@ -2,14 +2,13 @@
   import Tag from "../atoms/Tag.svelte";
   import MemberProfile from "../atoms/MemberProfile.svelte";
   import MemberTag from "../molecules/MemberTag.svelte";
-  import { get_member_name } from '../constants';
 
   export let item: MailT;
 
 </script>
 
 <stackLayout orientation="horizontal">
-  <MemberProfile member_name={get_member_name(item.member)} />
+  <MemberProfile member_name={item.member} />
   <stackLayout>
   <wrapLayout>
       <image src="https://github.com/twinstae/izone-pm-viewer/raw/main/dist/img/yellow-star.png"

@@ -1,12 +1,13 @@
 <script lang="ts">
-  import MemberTag from '~/molecules/MemberTag.svelte';
-  import Tag from '~/atoms/Tag.svelte';
-  import MemberProfile from '~/atoms/MemberProfile.svelte';
-  import { get_member_name } from '~/constants';
+  import MemberTag from '../molecules/MemberTag.svelte';
+  import Tag from '../atoms/Tag.svelte';
+  import MemberProfile from '../atoms/MemberProfile.svelte';
+  import { get_member_name, output_path } from '../constants';
 
   export let pm: MailT;
   const html_list = pm.body.split("{이미지}");
 
+  const html_style = `<style> p { font-size: 0.8rem; } </style>`
 </script>
 
 <page>
@@ -21,9 +22,9 @@
         <Tag text="{pm.time.slice(2)}" bg_color="pink"/>
       </wrapLayout>
       {#each html_list as html, i}
-        <htmlView html={html} />
-        {#if i != html_list.length}
-          <image src="{pm.images[i]}" style="width: 100%; border-radius: 8;"/>
+        <webView src={html_style + html} />
+        {#if i != html_list.length && pm.images[i]}
+          <image src="{output_path}/{pm.images[i]}" style="width: 100%; border-radius: 8;"/>
         {/if}
       {/each}
     </stackLayout>    
@@ -46,7 +47,8 @@
     height: 85%;
   }
 	
-	.subject {
+  .subject {
+    margin-left: 0.5rem;
 		font-size: 20px;
   }
 </style>

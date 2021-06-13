@@ -1,4 +1,69 @@
-export const pm_list: MailT[] = [
+import { File, Folder } from '@nativescript/core/file-system';
+const downloads_path = "/storage/emulated/0/Download";
+
+export const output_path = downloads_path + "/.izpm-viewer/output";
+
+export const member_name_dict = {
+  "장원영": 0, "チャン・ウォニョン": 0,
+  "미야와키 사쿠라": 1, "宮脇咲 良": 1, "宮脇咲良": 1,
+  "조유리": 2, "チョ・ユリ": 2,
+  "최예나": 3, "チェ・イェナ": 3,
+  "안유진": 4,
+  "야부키 나코": 5, "矢吹奈子": 5, 
+  "권은비": 6, "クォン・ウンビ": 6, 
+  "강혜원": 7, "カン・へウォン": 7, 
+  "혼다 히토미": 8, "本田仁美": 8, 
+  "김채원": 9, "キム・チェウォン": 9, 
+  "김민주": 10, "キム・ミンジュ": 10, 
+  "이채연": 11, "イ・チェヨン": 11, 
+  "운영팀": 12, 
+  "오리예나": 3, "월클토미": 8, "김민주 앤젤": 10, "쌈무": 9, "광배": 7, "깃털채연": 11};
+
+export const test_member_profile = {
+  "장원영": "https://izone-mail.com/img/members/1_gkPY2N3/s.png?_=undefined",
+  "안유진": "https://izone-mail.com/img/members/5_ZYB4eu5/s.png?_=undefined",
+  "조유리": "https://izone-mail.com/img/members/3_yo9Y9CS/s.png?_=undefined",
+  "혼다 히토미": "https://izone-mail.com/img/members/9_0sRGq7K/s.png?_=undefined",
+  "야부키 나코": "https://izone-mail.com/img/members/6_y7AXxJ6/s.png?_=undefined",
+  "김민주": "https://izone-mail.com/img/members/11_m8tIGW8/s.png?_=undefined",
+  "김채원": "https://izone-mail.com/img/members/10_6DylMA6/s.png?_=undefined",
+  "이채연": "https://izone-mail.com/img/members/12_GzP40wZ/s.png?_=undefined",
+  "최예나": "https://izone-mail.com/img/members/4_n4R2YDw/s.png?_=undefined",
+  "강혜원": "https://izone-mail.com/img/members/8_2eKPTy5/s.png?_=undefined",
+  "미야와키 사쿠라": "https://izone-mail.com/img/members/2_ql7A7OR/s.png?_=undefined",
+  "권은비": "https://izone-mail.com/img/members/7_A2WviW3/s.png?_=undefined",
+}
+const MEMBER_LIST: Member[] = [
+  "장원영", "미야와키 사쿠라", "조유리", "최예나",
+  "안유진", "야부키 나코", "권은비", "강혜원",
+  "혼다 히토미", "김채원", "김민주", "이채연"
+]
+
+export const n_to_member: Map<number, Member> = new Map(MEMBER_LIST.map((v, i)=> [i, v]))
+	
+export const get_member_name = (nick: string) => n_to_member.get(member_name_dict[nick]);
+
+export const get_json = (file_path: string) => JSON.parse(File.fromPath(output_path + file_path).readTextSync())
+
+function get_pm_list(){
+  if(! Folder.exists(output_path)){
+    return test_pm_list;
+  }
+
+  const raw_pm_list = get_json("/pm_list.json");
+  const mail_body_dict = get_json("/mail_body_dict.json");
+
+  return raw_pm_list.map((pm: MailT)=> ({
+    ...pm,
+    member: get_member_name(pm.member),
+    body: mail_body_dict[pm.id].body,
+    images: mail_body_dict[pm.id].images
+  }))
+}
+
+export const pm_list: MailT[] = get_pm_list();
+
+export const test_pm_list: MailT[] = [
   {
     "id": "t0012",
     "member": "장원영",
@@ -260,54 +325,6 @@ export const pm_list: MailT[] = [
     ]
   },
 ];
-	
-export const member_name_dict = {
-  "장원영": 0, "チャン・ウォニョン": 0,
-  "미야와키 사쿠라": 1, "宮脇咲 良": 1, "宮脇咲良": 1,
-  "조유리": 2, "チョ・ユリ": 2,
-  "최예나": 3, "チェ・イェナ": 3,
-  "안유진": 4,
-  "야부키 나코": 5, "矢吹奈子": 5, 
-  "권은비": 6, "クォン・ウンビ": 6, 
-  "강혜원": 7, "カン・へウォン": 7, 
-  "혼다 히토미": 8, "本田仁美": 8, 
-  "김채원": 9, "キム・チェウォン": 9, 
-  "김민주": 10, "キム・ミンジュ": 10, 
-  "이채연": 11, "イ・チェヨン": 11, 
-  "운영팀": 12, 
-  "오리예나": 3, "월클토미": 8, "김민주 앤젤": 10, "쌈무": 9, "광배": 7, "깃털채연": 11};
-
-export const test_member_profile = {
-  "장원영": "https://izone-mail.com/img/members/1_gkPY2N3/s.png?_=undefined",
-  "안유진": "https://izone-mail.com/img/members/5_ZYB4eu5/s.png?_=undefined",
-  "조유리": "https://izone-mail.com/img/members/3_yo9Y9CS/s.png?_=undefined",
-  "혼다 히토미": "https://izone-mail.com/img/members/9_0sRGq7K/s.png?_=undefined",
-  "야부키 나코": "https://izone-mail.com/img/members/6_y7AXxJ6/s.png?_=undefined",
-  "김민주": "https://izone-mail.com/img/members/11_m8tIGW8/s.png?_=undefined",
-  "김채원": "https://izone-mail.com/img/members/10_6DylMA6/s.png?_=undefined",
-  "이채연": "https://izone-mail.com/img/members/12_GzP40wZ/s.png?_=undefined",
-  "최예나": "https://izone-mail.com/img/members/4_n4R2YDw/s.png?_=undefined",
-  "강혜원": "https://izone-mail.com/img/members/8_2eKPTy5/s.png?_=undefined",
-  "미야와키 사쿠라": "https://izone-mail.com/img/members/2_ql7A7OR/s.png?_=undefined",
-  "권은비": "https://izone-mail.com/img/members/7_A2WviW3/s.png?_=undefined",
-}
-
-export const n_to_member = {
-	0:"장원영",
-	1:"미야와키 사쿠라",
-	2:"조유리",
-	3:"최예나",
-	4:"안유진",
-	5:"야부키 나코",
-	6:"권은비",
-	7:"강혜원",
-	8:"혼다 히토미",
-	9:"김채원",
-	10:"김민주",
-	11:"이채연",
-}
-	
-export const get_member_name = (nick: string) => n_to_member[member_name_dict[nick]];
 
 export const member_color_dict = {
 		0:"#d9598c",

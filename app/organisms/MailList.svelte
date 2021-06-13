@@ -1,15 +1,15 @@
 <script lang="ts">
 import { navigate } from 'svelte-native';
 import { Template } from 'svelte-native/components';
-import { pm_list } from '../constants';
 import MailDetail from "./MailDetail.svelte";
-import { filtered_pm_list } from '../stores/mail_list';
-
 import MailItem from '../molecules/MailItem.svelte';
 import AllTagList from '../molecules/AllTagList.svelte';
+import { filtered_pm_list } from '../stores/mail_list';
+
+// let downloads_path = android.os.Environment.getExternalStoragePublicDirectory(android.os.Environment.DIRECTORY_DOWNLOADS).toString();
 
 const go_to_detail = (e) =>{
-  const pm = pm_list[e.index];
+  const pm = $filtered_pm_list[e.index];
   navigate({ page: MailDetail, props: { pm } })
 }
 
@@ -18,7 +18,7 @@ const go_to_detail = (e) =>{
 <page class="page">
 <stackLayout id="ListStack">
     <AllTagList />
-    <listView items={$filtered_pm_list} on:itemTap={go_to_detail}>
+    <listView items={$filtered_pm_list.slice(0,30)} on:itemTap={go_to_detail}>
       <Template let:item>
         <MailItem item={item} />
       </Template>
