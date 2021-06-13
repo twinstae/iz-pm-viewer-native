@@ -1,25 +1,33 @@
 <script lang="ts">
-  import { navigate } from 'svelte-native';
-  import MailList from './MailList.svelte';
   import MemberTag from '~/molecules/MemberTag.svelte';
   import Tag from '~/atoms/Tag.svelte';
+  import MemberProfile from '~/atoms/MemberProfile.svelte';
+  import { get_member_name } from '~/constants';
 
-  export let pm;
-  const html = `${pm.preview}`
+  export let pm: MailT;
+  const html_list = pm.body.split("{이미지}");
 
-  const onBackButtonTap = ()=> navigate({ page: MailList });
 </script>
 
 <page>
-  <stackLayout>
-    <wrapLayout>
-      <MemberTag member = {pm.member} />
-      <Tag text="{pm.time.slice(2)}" bg_color="pink"/>
-    </wrapLayout>
-    <label text="{pm.subject}" class="subject"/>
-    <htmlView html={html} />
-    <button text="돌아가기" on:tap={onBackButtonTap} />
-  </stackLayout>
+  <scrollView>
+    <stackLayout style="padding: 8; font-size: 16;">
+      <stackLayout orientation="horizontal">
+        <MemberProfile member_name={get_member_name(pm.member)} />
+        <label text="{pm.subject}" class="subject"/>
+      </stackLayout>
+      <wrapLayout>
+        <MemberTag member = {pm.member} />
+        <Tag text="{pm.time.slice(2)}" bg_color="pink"/>
+      </wrapLayout>
+      {#each html_list as html, i}
+        <htmlView html={html} />
+        {#if i != html_list.length}
+          <image src="{pm.images[i]}" style="width: 100%; border-radius: 8;"/>
+        {/if}
+      {/each}
+    </stackLayout>    
+  </scrollView>
 </page>
 
 
@@ -31,19 +39,14 @@
     #a7e0e1, #b7d3e9, #bbb0dc, #7592d7);
   }
 
-  stackLayout {
+  scrollView {
     margin: 8;
-    padding: 16;
     border-radius: 16;
     background-color: white;
+    height: 85%;
   }
 	
 	.subject {
 		font-size: 20px;
-  }
-
-  button {
-    background-color: pink;
-    border-radius: 16;
   }
 </style>

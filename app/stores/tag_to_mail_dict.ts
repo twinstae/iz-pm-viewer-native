@@ -1,5 +1,5 @@
 import { writable, Writable } from "svelte/store";
-import { base_tag_list, TagT } from "./all_tag_dict";
+import { base_tag_list } from "./all_tag_dict";
 
 const create_empty_string_set: ()=>Set<string> = ()=>new Set();
 

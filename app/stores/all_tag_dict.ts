@@ -1,9 +1,4 @@
-import { writable } from "svelte/store";
-
-export type TagT = {
-  value: string;
-  color: string;
-}
+import { writable, Writable, derived, Readable } from "svelte/store";
 
 export const MEMBER_TAG_LIST: TagT[] = [
     {"value":"권은비","color":"#bbb0dc"},
@@ -21,9 +16,56 @@ export const MEMBER_TAG_LIST: TagT[] = [
     {"value":"운영팀","color":"gray"}
 ];
 
-export const FAVORITE_TAG: TagT = { value: "★", color: "yellow"}
-export const UNREAD_TAG: TagT = { value: "읽지않음", color: "pink"}
+export const ALL_TAG: TagT = { value: "전체", color: "rainbow"};
+export const BIRTHDAY_TAG: TagT = { value: "생일", color: "rainbow"};
+export const FAVORITE_TAG: TagT = { value: "💖", color: "yellow"};
+export const UNREAD_TAG: TagT = { value: "읽지않음", color: "pink"};
 
-export const base_tag_list = [...MEMBER_TAG_LIST, FAVORITE_TAG, UNREAD_TAG];
+export const base_tag_list: TagT[] = [ ALL_TAG,...MEMBER_TAG_LIST, FAVORITE_TAG, UNREAD_TAG, BIRTHDAY_TAG];
 
-export const all_tag_dict = writable(new Map(base_tag_list.map(v=>[v.value, v])))
+export function init_all_tag_dict(){
+  return new Map(base_tag_list.map(v=>[v.value, v]))
+}
+
+export const all_tag_dict: Writable<Map<string, TagT>> = writable(init_all_tag_dict())
+
+export function add_tag(new_tag: TagT){
+  all_tag_dict.update(v=>{
+    v.set(new_tag.value, new_tag);
+
+    return v;
+  })
+}
+
+export function update_tag(old_tag_value: string, new_tag: TagT){
+  if (is_base_tag_value(old_tag_value)) return;
+
+  all_tag_dict.update(v=>{
+    const old_tag = v.get(old_tag_value);
+
+    old_tag.value = new_tag.value;
+    old_tag.color = new_tag.color;
+
+    v.delete(old_tag_value);
+    v.set(new_tag.value, old_tag);
+    return v;
+  })
+}
+
+function is_base_tag_value(tag_value: string): boolean {
+  return base_tag_list.some((base_tag)=> base_tag.value == tag_value)
+}
+
+export function delete_tag(tag_value: string){
+  if (is_base_tag_value(tag_value)) return;
+
+  all_tag_dict.update(v=>{
+    v.delete(tag_value);
+    return v;
+  })
+}
+
+export let all_tag_list: Readable<TagT[]> = derived(
+  [all_tag_dict],
+  ([$all_tag_dict]) => [...$all_tag_dict.values()]
+)
