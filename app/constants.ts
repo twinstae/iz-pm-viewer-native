@@ -1,8 +1,3 @@
-import { File, Folder } from '@nativescript/core/file-system';
-const downloads_path = "/storage/emulated/0/Download";
-
-export const output_path = downloads_path + "/.izpm-viewer/output";
-
 export const member_name_dict = {
   "장원영": 0, "チャン・ウォニョン": 0,
   "미야와키 사쿠라": 1, "宮脇咲 良": 1, "宮脇咲良": 1,
@@ -43,25 +38,21 @@ export const n_to_member: Map<number, Member> = new Map(MEMBER_LIST.map((v, i)=>
 	
 export const get_member_name = (nick: string) => n_to_member.get(member_name_dict[nick]);
 
-export const get_json = (file_path: string) => JSON.parse(File.fromPath(output_path + file_path).readTextSync())
-
-function get_pm_list(){
-  if(! Folder.exists(output_path)){
-    return test_pm_list;
-  }
-
-  const raw_pm_list = get_json("/pm_list.json");
-  const mail_body_dict = get_json("/mail_body_dict.json");
-
-  return raw_pm_list.map((pm: MailT)=> ({
-    ...pm,
-    member: get_member_name(pm.member),
-    body: mail_body_dict[pm.id].body,
-    images: mail_body_dict[pm.id].images
-  }))
+export const member_color_dict = {
+		0:"#d9598c",
+		1:"#f1d2e7",
+		2:"#f3aa51",
+		3:"#fcf695",
+		4:"#567ace",
+		5:"#b7d3e9",
+		6:"#bbb0dc",
+		7:"#db706c",
+		8:"#f1c3aa",
+		9:"#cee5d5",
+		10: "#fff",
+		11:"#a7e0e1"
 }
 
-export const pm_list: MailT[] = get_pm_list();
 
 export const test_pm_list: MailT[] = [
   {
@@ -325,18 +316,3 @@ export const test_pm_list: MailT[] = [
     ]
   },
 ];
-
-export const member_color_dict = {
-		0:"#d9598c",
-		1:"#f1d2e7",
-		2:"#f3aa51",
-		3:"#fcf695",
-		4:"#567ace",
-		5:"#b7d3e9",
-		6:"#bbb0dc",
-		7:"#db706c",
-		8:"#f1c3aa",
-		9:"#cee5d5",
-		10: "#fff",
-		11:"#a7e0e1"
-}

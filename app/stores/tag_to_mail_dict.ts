@@ -1,5 +1,5 @@
 import { writable, Writable } from "svelte/store";
-import { pm_list } from "../constants";
+import { pm_list } from "./mail_list";
 import { all_tag_dict, base_tag_list } from "./all_tag_dict";
 
 let $all_tag_dict = new Map();

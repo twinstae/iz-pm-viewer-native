@@ -1,8 +1,7 @@
 import {describe, expect, it} from '@jest/globals'
 
-import { pm_list } from "../app/constants";
 import { MEMBER_TAG_LIST } from "../app/stores/all_tag_dict";
-import { filtered_pm_list } from "../app/stores/mail_list";
+import { pm_list, filtered_pm_list } from "../app/stores/mail_list";
 import { selected_tag_value } from "../app/stores/now";
 
 let value = [];

@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import { all_tag_dict, init_all_tag_dict, MEMBER_TAG_LIST } from '../app/stores/all_tag_dict';
 import { tag_to_mail_dict, init_tag_to_mail_dict } from "../app/stores/tag_to_mail_dict";
 import { add_tag_to_mail, delete_tag, update_tag } from "../app/stores/tag_controller";
-import { pm_list } from "../app/constants";
+import { pm_list } from "../app/stores/mail_list";
 
 let $all_tag_dict = new Map();
 all_tag_dict.subscribe(v=>{
