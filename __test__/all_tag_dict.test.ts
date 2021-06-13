@@ -1,10 +1,12 @@
 import {describe, expect, it} from '@jest/globals';
 import {
   all_tag_dict, all_tag_list,
-  init_all_tag_dict, add_tag, update_tag, delete_tag,
-  ALL_TAG, BIRTHDAY_TAG, UNREAD_TAG,
+  init_all_tag_dict, ALL_TAG, BIRTHDAY_TAG, UNREAD_TAG,
   FAVORITE_TAG, MEMBER_TAG_LIST, base_tag_list
 } from '../app/stores/all_tag_dict';
+import {
+  add_tag, update_tag, delete_tag
+} from '../app/stores/tag_controller';
 
 let $all_tag_dict = new Map();
 
@@ -25,11 +27,11 @@ describe("all_tag_dict", ()=>{
     })
   }
 
-  function EXPECT_태그를_가지고_있다(tag_value){
+  function EXPECT_태그를_가지고_있다(tag_value: string){
      expect($all_tag_dict.has(tag_value)).toBeTruthy();
   }
   
-  function EXPECT_태그가_없다(tag_value){
+  function EXPECT_태그가_없다(tag_value: string){
      expect($all_tag_dict.has(tag_value)).toBeFalsy();
   }
 
@@ -55,6 +57,15 @@ describe("all_tag_dict", ()=>{
     })
   })
 
+  describe("이미 존재하는 태그를 추가하면", ()=>{
+    it('TagAlreadyExistError 를 발생시킨다.', ()=>{
+      expect(()=>{
+        add_tag(TEST_TAG);
+        add_tag(TEST_TAG);
+      }).toThrow("이미 존재합니다");
+    })
+  })
+
   describe("테스트 태그를 새로운 태그로 수정하면", ()=>{
     it('새로운 태그를 가지고 있다.', ()=>{
       add_tag(TEST_TAG);
@@ -72,11 +83,12 @@ describe("all_tag_dict", ()=>{
 
   describe("기본 태그를 수정하면", ()=>{
     base_tag_list.forEach((base_tag)=>{
-      it(`${base_tag.value} 태그가 변하지 않고 그대로 있다.`, ()=>{
+      it(`${base_tag.value} 태그는 그대로 있고, BaseTagError 를 발생시킨다.`, ()=>{
         EXPECT_태그를_가지고_있다(base_tag.value);
 
-        update_tag(base_tag.value, NEW_TAG);
-
+        expect(() => {
+          update_tag(base_tag.value, NEW_TAG);
+        }).toThrow("기본 태그");
         EXPECT_태그를_가지고_있다(base_tag.value);
       })
     })
@@ -95,10 +107,12 @@ describe("all_tag_dict", ()=>{
 
   describe("기본 태그를 삭제하면", ()=>{
     base_tag_list.forEach((base_tag)=>{
-      it(`${base_tag.value} 태그가 사라지지 않고 그대로 있다.`, ()=>{
+      it(`${base_tag.value} 태그는 그대로 있고, BaseTagError 를 발생시킨다.`, ()=>{
         EXPECT_태그를_가지고_있다(base_tag.value);
 
-        delete_tag(base_tag.value);
+        expect(() => {
+          delete_tag(base_tag.value);
+        }).toThrow("기본 태그");
 
         EXPECT_태그를_가지고_있다(base_tag.value);
       })
