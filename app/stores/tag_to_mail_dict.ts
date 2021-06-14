@@ -7,13 +7,18 @@ all_tag_dict.subscribe(v=>{
   $all_tag_dict = v;
 })
 
+let $pm_list = [];
+pm_list.subscribe(v=>{
+  $pm_list = v;
+})
+
 
 const create_empty_string_set: ()=>Set<string> = ()=>new Set();
 
 export function init_tag_to_mail_dict(): Map<TagT, Set<string>> {
   const result = new Map(base_tag_list.map((tag: TagT)=>[tag, create_empty_string_set()]));
 
-  pm_list.forEach(pm=>{
+  $pm_list.forEach(pm=>{
     const member_tag = $all_tag_dict.get(pm.member);
     if (!member_tag) throw pm.member + "태그가 없어요!";
 

@@ -16,7 +16,7 @@ import { selected_tag_value } from "~/stores/now";
   label.Tag {
     margin: 2;
 		font-size: 10px;
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 4;
 	}
 

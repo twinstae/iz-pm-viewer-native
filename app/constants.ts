@@ -1,3 +1,5 @@
+export const SERVER_ROOT = "http://192.168.219.104:8000";
+
 export const member_name_dict = {
   "장원영": 0, "チャン・ウォニョン": 0,
   "미야와키 사쿠라": 1, "宮脇咲 良": 1, "宮脇咲良": 1,

@@ -2,12 +2,21 @@
   import MemberTag from '../molecules/MemberTag.svelte';
   import Tag from '../atoms/Tag.svelte';
   import MemberProfile from '../atoms/MemberProfile.svelte';
-  import { get_member_name, output_path } from '../constants';
+  import { get_member_name, output_path, SERVER_ROOT } from '../constants';
 
   export let pm: MailT;
   const html_list = pm.body.split("{이미지}");
 
-  const html_style = `<style> p { font-size: 0.8rem; } </style>`
+  const html_style = ""; // `<style> p { font-size: 1rem; } </style>`
+
+  function get_src(img: string){
+    if (img.startsWith("http")){
+      return img;
+    }
+
+    return SERVER_ROOT + "/" + img;
+    // return output_path + "/" + img;
+  } 
 </script>
 
 <page>
@@ -24,7 +33,7 @@
       {#each html_list as html, i}
         <webView src={html_style + html} />
         {#if i != html_list.length && pm.images[i]}
-          <image src="{output_path}/{pm.images[i]}" style="width: 100%; border-radius: 8;"/>
+          <image src="{get_src(pm.images[i])}" style="width: 100%; border-radius: 8;"/>
         {/if}
       {/each}
     </stackLayout>    

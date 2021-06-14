@@ -8,11 +8,6 @@ all_tag_dict.subscribe(v=>{
 })
 
 
-let $tag_to_mail_dict = new Map();
-tag_to_mail_dict.subscribe(v=>{
-  $tag_to_mail_dict = v;
-})
-
 const TagAlreadyExistError = (tag_value: string) => {
   const e = new Error(tag_value + " 태그가 이미 존재합니다.");
   e.name = "TagAlreadyExistError";

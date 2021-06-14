@@ -1,8 +1,8 @@
 <script lang="typescript">
-  import MailList from "./organisms/MailList.svelte";
+  import MailListPage from "./pages/MailListPage.svelte";
 </script>
 
-<MailList />
+<MailListPage />
 
 <style>
 </style>
