@@ -1,7 +1,7 @@
 <script lang="ts">
-import Tag from "../atoms/Tag.svelte";
-import { all_tag_list } from '../stores/all_tag_dict';
-import { selected_tag } from '../stores/now';
+import Tag from "~/components/atoms/Tag.svelte";
+import { all_tag_list } from '~/stores/all_tag_dict';
+import { selected_tag } from '~/stores/now';
 
 </script>
 

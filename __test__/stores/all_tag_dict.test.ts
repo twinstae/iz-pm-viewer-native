@@ -3,10 +3,10 @@ import {
   all_tag_dict, all_tag_list,
   init_all_tag_dict, ALL_TAG, BIRTHDAY_TAG, UNREAD_TAG,
   FAVORITE_TAG, MEMBER_TAG_LIST, base_tag_list
-} from '../app/stores/all_tag_dict';
+} from '../../app/stores/all_tag_dict';
 import {
   add_tag, update_tag, delete_tag
-} from '../app/stores/tag_controller';
+} from '../../app/stores/tag_controller';
 
 let $all_tag_dict = new Map();
 

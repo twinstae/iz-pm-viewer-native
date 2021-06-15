@@ -1,5 +1,5 @@
 <script lang="typescript">
-  import MailListPage from "./pages/MailListPage.svelte";
+  import MailListPage from "~/components/pages/MailListPage.svelte";
 </script>
 
 <MailListPage />

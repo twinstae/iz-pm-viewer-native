@@ -5,7 +5,7 @@ export const member_name_dict = {
   "미야와키 사쿠라": 1, "宮脇咲 良": 1, "宮脇咲良": 1,
   "조유리": 2, "チョ・ユリ": 2,
   "최예나": 3, "チェ・イェナ": 3,
-  "안유진": 4,
+  "안유진": 4, "アン・ユジン": 4,
   "야부키 나코": 5, "矢吹奈子": 5, 
   "권은비": 6, "クォン・ウンビ": 6, 
   "강혜원": 7, "カン・へウォン": 7, 
@@ -30,31 +30,16 @@ export const test_member_profile = {
   "미야와키 사쿠라": "https://izone-mail.com/img/members/2_ql7A7OR/s.png?_=undefined",
   "권은비": "https://izone-mail.com/img/members/7_A2WviW3/s.png?_=undefined",
 }
-const MEMBER_LIST: Member[] = [
+
+export const MEMBER_LIST: Member[] = [
   "장원영", "미야와키 사쿠라", "조유리", "최예나",
   "안유진", "야부키 나코", "권은비", "강혜원",
-  "혼다 히토미", "김채원", "김민주", "이채연"
+  "혼다 히토미", "김채원", "김민주", "이채연", "운영팀"
 ]
 
 export const n_to_member: Map<number, Member> = new Map(MEMBER_LIST.map((v, i)=> [i, v]))
 	
 export const get_member_name = (nick: string) => n_to_member.get(member_name_dict[nick]);
-
-export const member_color_dict = {
-		0:"#d9598c",
-		1:"#f1d2e7",
-		2:"#f3aa51",
-		3:"#fcf695",
-		4:"#567ace",
-		5:"#b7d3e9",
-		6:"#bbb0dc",
-		7:"#db706c",
-		8:"#f1c3aa",
-		9:"#cee5d5",
-		10: "#fff",
-		11:"#a7e0e1"
-}
-
 
 export const test_pm_list: MailT[] = [
   {

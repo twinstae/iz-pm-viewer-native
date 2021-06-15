@@ -1,6 +1,25 @@
 <script lang="ts">
 import AllTagList from '../molecules/AllTagList.svelte';
 import MailList from '../organisms/MailList.svelte';
+
+import fs from "~/infra/fs";
+import server from "~/infra/server";
+import { pm_list } from "~/stores/mail_list";
+
+async function init(){
+  if (fs.file_exists("/pm_list.json")){
+    const v = await fs.get_pm_list();
+    pm_list.set(v);
+  } else {
+    const v = await server.get_pm_list();
+
+    pm_list.set(v);
+    fs.write_json("/pm_list.json", v);
+  }
+}
+
+init();
+
 </script>
 
 <page class="page">
