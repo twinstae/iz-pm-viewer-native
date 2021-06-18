@@ -1,6 +1,8 @@
-import { MEMBER_TAG_LIST } from "../../app/stores/all_tag_dict";
-import { pm_list, filtered_pm_list } from "../../app/stores/mail_list";
-import { selected_tag_value } from "../../app/stores/now";
+import { describe, it, expect } from "@jest/globals";
+import { MEMBER_TAG_LIST } from "../stores/all_tag_dict";
+import { pm_list } from "../stores/mail_list";
+import { filtered_pm_list } from "../stores/search";
+import { selected_tag_value } from "../stores/now";
 
 
 let $pm_list = [];

@@ -3,7 +3,7 @@ import { navigate } from 'svelte-native';
 import { Template } from 'svelte-native/components';
 import MailDetailPage from "~/components/pages/MailDetailPage.svelte";
 import MailItem from '~/components/molecules/MailItem.svelte';
-import { filtered_pm_list } from '~/stores/mail_list';
+import { filtered_pm_list } from '~/stores/search';
 import { selected_tag_value } from '~/stores/now';
 import { onMount } from 'svelte';
 import { showModal } from 'svelte-native'

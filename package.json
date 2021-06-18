@@ -37,20 +37,32 @@
   "bugs": {
     "url": "https://github.com/NativeScript/NativeScript/issues"
   },
+  "scripts": {
+    "test:local": "jest --watch __tests__",
+    "test:emulator": "ns test android --emulator"
+  },
   "dependencies": {
     "@nativescript-community/ui-material-bottom-navigation": "^5.3.5",
     "@nativescript-community/ui-material-tabs": "^5.3.5",
     "@nativescript/core": "~8.0.0",
     "@nativescript/theme": "~3.0.1",
     "@nativescript/unit-test-runner": "^2.0.5",
+    "flexsearch": "^0.7.1",
     "svelte-native": "~0.9.5"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.14.4",
+    "@babel/preset-typescript": "^7.13.0",
     "@nativescript/android": "8.0.0",
     "@nativescript/types": "~8.0.0",
     "@nativescript/webpack": "beta",
     "@types/jasmine": "^3.7.7",
+    "@types/jest": "^26.0.23",
+    "babel-core": "^7.0.0-beta.3",
+    "babel-jest": "^27.0.0-next.8",
+    "babel-plugin-root-import": "^6.6.0",
     "jasmine": "^3.7.0",
+    "jest": "^27.0.4",
     "karma": "6.3.4",
     "karma-jasmine": "4.0.1",
     "karma-nativescript-launcher": "0.4.0",
@@ -59,6 +71,7 @@
     "svelte-loader-hot": "~0.3.1",
     "svelte-native-preprocessor": "^0.2.0",
     "svelte-preprocess": "^4.7.0",
+    "ts-jest": "^27.0.3",
     "typescript": "~4.0.0"
   },
   "private": "true",

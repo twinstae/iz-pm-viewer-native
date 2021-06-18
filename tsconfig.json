@@ -18,7 +18,7 @@
       "@/*": ["app/*"]
     }
   },
-  "include": ["app/**/*"],
+  "include": ["app/**/*", "tests"],
   "files": ["./references.d.ts"],
   "types": ["jasmine"],
   "exclude": ["node_modules", "platforms"]

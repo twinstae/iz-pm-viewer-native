@@ -21,7 +21,13 @@ export const BIRTHDAY_TAG: TagT = { value: "생일", color: "rainbow"};
 export const FAVORITE_TAG: TagT = { value: "💖", color: "yellow"};
 export const UNREAD_TAG: TagT = { value: "읽지않음", color: "pink"};
 
-export const base_tag_list: TagT[] = [ ALL_TAG,...MEMBER_TAG_LIST, FAVORITE_TAG, UNREAD_TAG, BIRTHDAY_TAG];
+export const base_tag_list: TagT[] = [
+  ALL_TAG,
+  ...MEMBER_TAG_LIST,
+  FAVORITE_TAG,
+  UNREAD_TAG,
+  BIRTHDAY_TAG
+];
 
 export function init_all_tag_dict(){
   return new Map(base_tag_list.map(v=>[v.value, v]))

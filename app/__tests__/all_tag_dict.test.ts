@@ -1,11 +1,13 @@
+import { describe, it, expect, afterEach } from "@jest/globals";
+
 import {
   all_tag_dict, all_tag_list,
   init_all_tag_dict, ALL_TAG, BIRTHDAY_TAG, UNREAD_TAG,
   FAVORITE_TAG, MEMBER_TAG_LIST, base_tag_list
-} from '~/stores/all_tag_dict';
+} from '../stores/all_tag_dict';
 import {
-  add_tag, update_tag, delete_tag
-} from '~/stores/tag_controller';
+  add_tag, update_tag, delete_tag, BaseTagError, TagAlreadyExistError
+} from '../stores/tag_controller';
 
 let $all_tag_dict = new Map();
 
@@ -61,7 +63,7 @@ describe("all_tag_dict", function(){
       expect(()=>{
         add_tag(TEST_TAG);
         add_tag(TEST_TAG);
-      }).toThrowError(/이미 존재합니다/);
+      }).toThrowError(TagAlreadyExistError);
     })
   })
 
@@ -87,7 +89,7 @@ describe("all_tag_dict", function(){
 
         expect(() => {
           update_tag(base_tag.value, NEW_TAG);
-        }).toThrowError(/기본 태그/);
+        }).toThrowError(BaseTagError);
         EXPECT_태그를_가지고_있다(base_tag.value);
       })
     })
