@@ -9,11 +9,10 @@ import { pm_list } from "~/stores/mail_list";
 async function init(){
   if (fs.file_exists("/pm_list.json")){
     const v = await fs.get_pm_list();
-    pm_list.set(v);
+    pm_list.update(test_list=> v.concat(test_list));
   } else {
     const v = await server.get_pm_list();
-
-    pm_list.set(v);
+    pm_list.update(test_list=> v.concat(test_list));
     fs.write_json("/pm_list.json", v);
   }
 }

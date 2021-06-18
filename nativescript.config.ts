@@ -1,12 +1,11 @@
-import { NativeScriptConfig } from '@nativescript/core'
+import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'technology.sveltenative.template',
-  appResourcesPath: 'app/App_Resources',
+  id: 'org.nativescript.izpmviewersveltenative',
+  appPath: 'app',
+  appResourcesPath: 'App_Resources',
   android: {
     v8Flags: '--expose_gc',
-    markingMode: 'none',
-  },
-  webpackConfigPath: './svelte-native.webpack.config.js',
-  appPath: 'app',
-} as NativeScriptConfig
+    markingMode: 'none'
+  }
+} as NativeScriptConfig;

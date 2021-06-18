@@ -1,18 +1,28 @@
 <script lang="ts">
-  import { SERVER_ROOT, get_member_name } from "~/constants";
-  import fs from '~/infra/fs';
+  import { get_member_name } from "~/constants";
+  import { get_image_source_or_download_from_server } from '~/infra';
+  import { showModal } from 'svelte-native'
+  import { profile_theme } from "~/stores/preference";
+  import ProfileChangeModal from "../organisms/ProfileChangeModal.svelte";
+
   export let member_name: string;
 
-  const profile_theme = "latest";
-  $: profile_img = ((member_name == "운영팀") ? "/img/izone-pm-profile.png" : `/img/profile/${profile_theme}/${get_member_name(member_name) || '강혜원'}.jpg`)
+  $: profile_img = ((member_name == "운영팀") ? "/img/izone-pm-profile.png" : `/img/profile/${$profile_theme}/${get_member_name(member_name) || '강혜원'}.jpg`)
 
-  $: fs_src = fs.output_path + profile_img;
-  $: server_src = SERVER_ROOT + profile_img;
+  $: src = get_image_source_or_download_from_server(profile_img);
 
-  $: src = fs_src; //fs.file_exists(fs_src) ? fs_src : server_src;
-  // `${output_path}/img/profile/${profile_theme}/${member_name || '강혜원'}.jpg`;
+  async function onLongPress(){
+    const selected_theme: string = await showModal({
+      page: ProfileChangeModal,
+      props: { selected_theme: $profile_theme },
+      fullscreen: true
+    });
+    profile_theme.set(selected_theme);
+  }
+
+  // `${output_path}/img/profile/${$profile_theme}/${member_name || '강혜원'}.jpg`;
 </script>
-<image src={fs_src} width="50" height="50" />
+<image src={src} width="50" height="50" on:longPress={onLongPress}/>
 <style>
   image {
     float: left;

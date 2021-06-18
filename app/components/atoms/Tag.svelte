@@ -5,6 +5,7 @@ import { selected_tag_value } from "~/stores/now";
   export let bg_color: string;
 </script>
 
+<!-- svelte-ignore a11y-label-has-associated-control -->
 <label class="Tag"
        class:rainbow={bg_color == "rainbow"}
        style="background-color: {bg_color == 'rainbow' ? 'white' : bg_color}"
@@ -15,8 +16,8 @@ import { selected_tag_value } from "~/stores/now";
 
   label.Tag {
     margin: 2;
-		font-size: 10px;
-    border-radius: 8px;
+		font-size: 14;
+    border-radius: 8;
     padding: 4;
 	}
 

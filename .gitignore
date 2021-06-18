@@ -3,9 +3,6 @@ hooks/
 node_modules/
 platforms/
 
-# NativeScript Template
-*.js.map
-
 # Logs
 logs
 *.log
@@ -29,6 +26,3 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-
-*.tgz
-webpack.config.js

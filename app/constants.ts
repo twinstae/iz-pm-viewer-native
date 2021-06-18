@@ -31,6 +31,20 @@ export const test_member_profile = {
   "권은비": "https://izone-mail.com/img/members/7_A2WviW3/s.png?_=undefined",
 }
 
+export const profile_list = [
+  {"path":"la-vie-en-rose","name":"라비앙 로즈"},
+  {"path":"violeta","name":"비올레타"},
+  {"path":"fiesta","name":"피에스타"},
+  {"path":"the-secret-story-of-swan","name":"환상동화"},
+  {"path":"panorama","name":"파노라마"},
+  {"path":"one-the-story","name":"One The Story 포스터"},
+  {"path":"eating-trip-3","name":"잇힝 트립 3"},
+  {"path":"birthday","name":"생일 축하해"},
+  {"path":"latest","name":"최신 프메"},
+  {"path":"secret-diary-id","name":"Secret Diary 증명사진"},
+  {"path":"instagram","name":"인스타그램 public mail"}
+];
+
 export const MEMBER_LIST: Member[] = [
   "장원영", "미야와키 사쿠라", "조유리", "최예나",
   "안유진", "야부키 나코", "권은비", "강혜원",
